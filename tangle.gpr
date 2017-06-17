@@ -1,0 +1,33 @@
+-- $Id: tangle.gpr 431 2016-03-05 10:20:21Z gmd $
+
+--with "utils.gpr";
+
+project Tangle is
+
+   for Main use ("tangle.adb");
+   for Source_Dirs use ("src");
+   for Object_Dir use "obj/";
+   for Exec_Dir use "bin/";
+
+   package Builder is
+      for Default_Switches ("ada") use ("-s", "-j8");
+   end Builder;
+
+   package Linker is
+      for Default_Switches ("ada") use ("-g", "-lc");
+   end Linker;
+
+   package Binder is
+      for Default_Switches ("ada") use ("-E", "-shared");
+   end Binder;
+
+   package Compiler is
+      for Default_Switches ("ada") use ("-gnatn", "-gnatp", "-g", "-pipe", "-gnatW8", "-gnatVn", "-gnat12", "-gnato", "-funroll-loops", "-O");
+   end Compiler;
+
+   package Ide is
+      for Default_Switches ("adacontrol") use ("-f", "/home/gmd/svnwork/ada2005/rules/verif.aru", "-F", "gnat_short");
+   end Ide;
+
+end Tangle;
+
